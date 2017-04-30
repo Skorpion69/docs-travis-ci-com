@@ -58,25 +58,30 @@ If none of the ciphers listed above works, please open a [GitHub issue](https://
 
 Specify recipients that will be notified about build results:
 
-    notifications:
-      email:
-        - one@example.com
-        - other@example.com
-
+```yml
+notifications:
+  email:
+    - one@example.com
+    - other@example.com
+```
 Turn off email notifications entirely:
 
-    notifications:
-      email: false
+```yml
+notifications:
+  email: false
+```
 
 Specify when you want to get notified:
 
-    notifications:
-      email:
-        recipients:
-          - one@example.com
-          - other@example.com
-        on_success: [always|never|change] # default: change
-        on_failure: [always|never|change] # default: always
+```yml
+notifications:
+  email:
+    recipients:
+      - one@example.com
+      - other@example.com
+    on_success: [always|never|change] # default: change
+    on_failure: [always|never|change] # default: always
+```
 
 > Note: Items in brackets are placeholders. Brackets should be omitted.
 
@@ -101,14 +106,23 @@ The default can be overridden in the `.travis.yml` as shown above. If there's a
 setting specified, Travis CI only sends an emails to the addresses specified
 there, rather than to the committer and author.
 
-### How can I change the email address for build notifications?
+### Changing the email address for build notifications
 
-The email addresses are pulled from GitHub. All emails registered there for your
-user account are available in Travis CI as well.
+Travis CI only sends build notifications to email addresses registered on GitHub.
+If you have multiple address registered you can set the email address for a specific
+ repository using `git`:
 
-You can change the build email address by setting a different email address for
-a specific repository. Running `git config user.email my@email.com` sets a
-different email address than the default for your repository.
+> Note that this also changes the commit email address, not just the Travis CI notification settings.
+
+```sh
+git config user.email "mynewemail@example.com"
+```
+
+Or set the email for all of your git repositories:
+
+```sh
+git config --global user.email "mynewemail@example.com"
+```
 
 Note that we currently don't respect the [detailed notifications
 settings](https://github.com/settings/notifications) on
@@ -135,6 +149,8 @@ Or multiple channels:
       irc:
         - "chat.freenode.net#my-channel"
         - "chat.freenode.net#some-other-channel"
+				- "irc://chat.freenode.net:8000/#plaintext_channel"
+				- "ircs://chat.freenode.net:7070/#ssl_tls_channel"
 
 As with other notification types you can specify when IRC notifications will be sent:
 
@@ -171,7 +187,8 @@ You can interpolate the following variables:
 * *commit_subject*: first line of the commit message
 * *result*: result of build
 * *message*: travis message to the build
-* *duration*: duration of the build
+* *duration*: total duration of all builds in the matrix
+* *elapsed_time*: time between build start and finish
 * *compare_url*: commit change view URL
 * *build_url*: URL of the build detail
 
@@ -477,7 +494,7 @@ You can specify multiple channels as well.
           - <account>:<token>#general
         on_success: [always|never|change] # default: always
         on_failure: [always|never|change] # default: always
-        on_start: [always|never|change]   # default: always
+        on_start: [always|never|change]   # default: never
 
 As always, it's recommended to encrypt the credentials with our
 [travis](https://github.com/travis-ci/travis#readme) command line client.
@@ -523,7 +540,7 @@ As with other notification types you can specify when webhook payloads will be s
           - http://hooks.mydomain.com/events
         on_success: [always|never|change] # default: always
         on_failure: [always|never|change] # default: always
-        on_start: [always|never|change] # default: always
+        on_start: [always|never|change] # default: never
 
 ### Webhooks Delivery Format
 

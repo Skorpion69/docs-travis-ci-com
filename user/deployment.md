@@ -52,7 +52,7 @@ Deployment can be controlled by setting the `on:` for each deployment provider.
         condition: $MY_ENV = super_awesome
 
 When all conditions specified in the `on:` section are met, deployment for this
-provider will be peformed.
+provider will be performed.
 
 Common options are:
 
@@ -98,7 +98,7 @@ This example deploys to GitHub Releases when a tag is set and the Ruby version i
 
     deploy:
       provider: releases
-      api-key: "GITHUB OAUTH TOKEN"
+      api_key: "GITHUB OAUTH TOKEN"
       file: "FILE TO UPLOAD"
       skip_cleanup: true
       on:

@@ -41,6 +41,15 @@ To define an environment variable in your `.travis.yml`, add the `env` line, for
 > PACKAGE_VERSION="1.0.*"
 > ````
 
+> Note that environment variables are expected to be in the form:
+>
+> ```
+> env:
+>   - VAR=VAL
+> ```
+>
+> If multiple values are given, each will be defined.
+
 ### Defining Multiple Variables per Item
 
 When you specify multiple variables per item in the `env` array (matrix variables), one build is triggered per item.
@@ -121,7 +130,7 @@ To automatically add the encrypted environment variable to your `.travis.yml`:
 
     travis encrypt MY_SECRET_ENV=super_secret --add env.matrix
 
-> Encryption and decryption keys are tied to the repository. If you fork a project and add it to Travis CI, it will have different keys to the original.
+> Encryption and decryption keys are tied to the repository. If you fork a project and add it to Travis CI, it will have different keys than the original.
 
 The encryption scheme is explained in more detail in [Encryption keys](/user/encryption-keys).
 
@@ -167,14 +176,15 @@ to tag the build, or to run post-build deployments.
   or pull request.
 * `TRAVIS_JOB_ID`: The id of the current job that Travis CI uses internally.
 * `TRAVIS_JOB_NUMBER`: The number of the current job (for example, "4.1").
-* `TRAVIS_PULL_REQUEST`: The pull request number if the current job is a pull
-  request, "false" if it's not a pull request.
-* `TRAVIS_SECURE_ENV_VARS`: Whether or not encrypted environment vars are being
-  used. This value is either "true" or "false".
-* `TRAVIS_REPO_SLUG`: The slug (in form: `owner_name/repo_name`) of the
-  repository currently being built. (for example, "travis-ci/travis-build").
 * `TRAVIS_OS_NAME`: On multi-OS builds, this value indicates the platform the job is running on.
   Values are `linux` and `osx` currently, to be extended in the future.
+* `TRAVIS_PULL_REQUEST`: The pull request number if the current job is a pull
+  request, "false" if it's not a pull request.
+* `TRAVIS_REPO_SLUG`: The slug (in form: `owner_name/repo_name`) of the
+	repository currently being built. (for example, "travis-ci/travis-build").
+* `TRAVIS_SECURE_ENV_VARS`: Whether or not encrypted environment vars are being
+  used. This value is either "true" or "false".
+* `TRAVIS_TEST_RESULT`: is set to **0** if the build [is successful](/user/customizing-the-build/#Breaking-the-Build) and **1** if the build [is broken](/user/customizing-the-build/#Breaking-the-Build).
 * `TRAVIS_TAG`: If the current build for a tag, this includes the tag's name.
 
 Language-specific builds expose additional environment variables representing
@@ -195,6 +205,10 @@ depends on the language you're using.
 * `TRAVIS_RUBY_VERSION`
 * `TRAVIS_RUST_VERSION`
 * `TRAVIS_SCALA_VERSION`
+
+Other software specific environment variables are set when the software or service is installed or started, and contain the version number:
+
+* `TRAVIS_MARIADB_VERSION`
 
 The following environment variables are available for Objective-C builds.
 
