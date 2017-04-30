@@ -21,13 +21,17 @@ For a minimal configuration with S3, add the following to your `.travis.yml`:
         deployment_group: MyDeploymentGroup
 ```
 
+Note that in this example, Travis CI will attempt to deploy to an existing CodeDeploy Application called MyApp in AWS Region `us-east-1`.  
+
 A complete example can be found [here](https://github.com/travis-ci/cat-party/blob/master/.travis.yml).
 
 You can find your AWS Access Keys [here](https://console.aws.amazon.com/iam/home?#security_credential). It is recommended to encrypt that key.
 
+If your CodeDeploy application lives in any region other than `us-east-1` please add a region field to `.travis.yml` (see [AWS-region-to-deploy-to](https://docs.travis-ci.com/user/deployment/codedeploy#AWS-region-to-deploy-to)).
+
 Assuming you have the Travis CI command line client installed, you can do it like this:
 
-```
+```bash
 travis encrypt --add deploy.secret_access_key
 ```
 
@@ -35,8 +39,8 @@ You will be prompted to enter your api key on the command line.
 
 You can also have the `travis` tool set up everything for you:
 
-```
-$ travis setup codedeploy
+```bash
+travis setup codedeploy
 ```
 
 Keep in mind that the above command has to run in your project directory, so it can modify the `.travis.yml` for you.

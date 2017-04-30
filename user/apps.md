@@ -11,7 +11,7 @@ There is a wide range of tools you can use to interact with Travis CI:
 - **[Desktop](#desktop)**: [Mac OS X](#Mac-OS-X), [Linux](#Linux), [Windows](#Windows), [Cross Platform](#Cross-Platform)
 - **[Command Line Tools](#commandline)**: [Full Clients](#Full-Clients), [Build Monitoring](#Build-Monitoring), [Generators](#Generators)
 - **[Plugins](#plugins)**: [Google Chrome](#Google-Chrome), [Mozilla Firefox](#Mozilla-Firefox), [Opera](#Opera), [Editors](#Editors), [Other](#Other)
-- **[Libraries](#libraries)**: [Ruby](#Ruby), [JavaScript](#JavaScript), [PHP](#PHP), [Python](#Python)
+- **[Libraries](#libraries)**: [Ruby](#Ruby), [JavaScript](#JavaScript), [PHP](#PHP), [Python](#Python), [Elixir](#Elixir)
   {: .toc-list}
 
 And if you don't find anything that fits your needs, you can also interact with our [API](/api/) directly.
@@ -74,16 +74,6 @@ By Frederik Dietz
 
 - [website](http://fdietz.github.io/team_dashboard/)
 - [source code](https://github.com/fdietz/team_dashboard)
-
-### Ducksboard Travis
-
-![travis-light](/images/apps/ducksboard.jpg){:.app}
-
-Integrates Travis CI with [Ducksboard](https://ducksboard.com/)<br>
-By Divshot, Inc.
-
-- [website](https://ducksboard-travis.herokuapp.com/)
-- [source code](https://github.com/divshot/ducksboard-travis)
 
 ### CI Status
 
@@ -558,3 +548,7 @@ By Eduardo Antonio Lundgren Melo and Zeno Rocha Bueno Netto
 ## Python
 
 - [TravisPy](http://travispy.readthedocs.org/en/latest/) by Fabio Menegazzo
+
+## Elixir
+
+- [travis.ex](https://github.com/localytics/travis.ex) by Kevin Deisz

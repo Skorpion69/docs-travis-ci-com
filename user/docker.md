@@ -21,6 +21,8 @@ services:
 Then you can add `- docker` commands to your build as shown in the following
 examples.
 
+> Travis CI automatically routes builds to run on Trusty `sudo: required` when `services: docker` is configured.
+
 ### Using a Docker Image from a Repository in a Build
 
 This [example repository](https://github.com/travis-ci/docker-sinatra) runs two
@@ -125,7 +127,6 @@ the repository settings environment variables, which may be set up through the
 web or locally via the Travis CLI, e.g.:
 
 ```bash
-travis env set DOCKER_EMAIL me@example.com
 travis env set DOCKER_USERNAME myusername
 travis env set DOCKER_PASSWORD secretsecret
 ```
@@ -134,7 +135,7 @@ Within your `.travis.yml` prior to attempting a `docker push` or perhaps before
 `docker pull` of a private image, e.g.:
 
 ```bash
-docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 ```
 
 #### Branch Based Registry Pushes
@@ -145,7 +146,7 @@ use the `after_success` section of your `.travis.yml`:
 ```yaml
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker push USER/REPO;
     fi
 ```
@@ -156,14 +157,15 @@ When pushing to a private registry, be sure to specify the hostname in the
 `docker login` command, e.g.:
 
 ```bash
-docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" registry.example.com
+docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" registry.example.com
 ```
 
 ### Using Docker Compose
 
 The [Docker Compose](https://docs.docker.com/compose/) tool is also [installed in the Docker enabled environment](/user/trusty-ci-environment/#Docker).
 
-If needed, you can easily replace this preinstalled version of `docker-compose` by adding the following `before_install` step to your `.travis.yml`:
+If needed, you can easily replace this preinstalled version of `docker-compose`
+by adding the following `before_install` step to your `.travis.yml`:
 
 ```yaml
 env:
@@ -175,6 +177,19 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 ```
+
+### Installing a newer Docker version
+
+You can upgrade to the latest version and use any new Docker features by manually
+updating `docker-engine` in the `before_install` step of your `.travis.yml`:
+
+```yaml
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+```
+
+> Check what version of Docker you're running with `docker --version`
 
 #### Examples
 

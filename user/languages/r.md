@@ -110,7 +110,7 @@ packages listed in the LaTeX error message and search for them on [CTAN][ctan].
 Packages often have a `Contained in:` field that indicates the package group
 you need to install.
 
-If LaTeX is not needed, installation can be disabled using `latex: false`.
+If you don't need LaTeX, tell Travis CI not to install it using `latex: false`.
 
 ### Pandoc
 
@@ -123,7 +123,7 @@ language: r
 pandoc_version: 1.16
 ```
 
-If Pandoc is not needed, installation can be disabled using `pandoc: false`.
+If you don't need Pandoc, tell Travis CI not to install it using `pandoc: false`.
 
 ### APT packages
 
@@ -159,7 +159,7 @@ when building and checking your package:
 - `warnings_are_errors`: This option forces all `WARNINGS` from `R CMD check` to
   become build failures (default `true`). This is especially helpful when preparing
   your package for submission to CRAN, and is recommended for most packages.
-  Simply set `warnings_are_errors: false` if you need to disable this feature.
+  Set `warnings_are_errors: false` if you don't want `WARNINGS` to fail the build.
 
 - `r_build_args`: additional arguments to pass to `R CMD build`, as a single
   string. Defaults to empty.
@@ -201,7 +201,9 @@ You can minimise build times by caching your packrat packages with:
 
 ```yaml
 cache:
-  directories: $TRAVIS_BUILD_DIR/packrat/
+  directories:
+    - $TRAVIS_BUILD_DIR/packrat/src
+    - $TRAVIS_BUILD_DIR/packrat/lib
   packages: true
 ```
 
@@ -310,8 +312,13 @@ r_github_packages: user/repo
 An alternative is to add the following line to your `DESCRIPTION` file:
 
 ```yaml
+Imports: pkg-name-of-repo
 Remotes: user/repo
 ```
+
+Remember that `Remotes:` specifies the *source* of a development package, so the package still needs to be listed in `Imports:`, `Suggests:` `Depends:` or `LinkingTo:`.
+In the rare case where *repo* and *package* name differ, `Remotes:` expects the *reposistory* name and `Imports:` expects the *package* name (as per the `DESCRIPTION` of that imported package).
+
 
 ### Remote package in a subdirectory
 
