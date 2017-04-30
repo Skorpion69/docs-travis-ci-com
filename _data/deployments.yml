@@ -33,7 +33,10 @@ Puppet Forge: "/user/deployment/puppetforge/"
 PyPI: "/user/deployment/pypi/"
 Rackspace Cloud Files: "/user/deployment/cloudfiles/"
 RubyGems: "/user/deployment/rubygems/"
+<<<<<<< HEAD
 Scalingo: "/user/deployment/scalingo/"
+=======
+>>>>>>> refs/remotes/origin/deployment-sidebar-script
 Script: "/user/deployment/script/"
 Surge.sh: "/user/deployment/surge/"
 TestFairy: "/user/deployment/testfairy/"
